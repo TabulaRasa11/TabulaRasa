@@ -4,7 +4,6 @@
 require("scripts/globals/shop")
 require("modules/module_utils")
 
-
 local m = Module:new("conquest_npc_shop_always_open")
 
 xi = xi or {}
