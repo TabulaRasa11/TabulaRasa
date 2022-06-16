@@ -36,5 +36,4 @@
 #
 # Live example:
 
-custom/lua/test_npcs_in_gm_home.lua
-custom/lua/conquest_regional_npcs_always_up.lua
+#custom/lua/test_npcs_in_gm_home.lua

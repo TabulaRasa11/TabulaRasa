@@ -464,11 +464,16 @@ xi.customShop.TaraihiPerunhi =
     951,   110  -- Wijnruit
 }
 
+--[[
+    DOUBLECHECK FOLLOWING NPCS AFTER
+YAFAFA - OPEN DIALOG ID
+
+]]--
 local lookupTable =
 {
     --Bastok Markets
     {"Bastok_Markets", "Oggodett", xi.customShop.Oggodett, xi.quest.fame_area.BASTOK, "OGGODETT_OPEN_DIALOG"},
-    {"Bastok_Markets", "Yafafa", xi.customShop.Yafafa, xi.quest.fame_area.BASTOK, "YAFOF_OPEN_DIALOG"},
+    {"Bastok_Markets", "Yafafa", xi.customShop.Yafafa, xi.quest.fame_area.BASTOK, "YAFAFA_OPEN_DIALOG"},
     {"Bastok_Markets", "Somn-Paemn", xi.customShop.SomnPaemn, xi.quest.fame_area.BASTOK, "SOMNPAEMN_OPEN_DIALOG"},
     --Bastok Mines
     {"Bastok_Mines", "Aulavia", xi.customShop.Aulavia, xi.quest.fame_area.BASTOK, "AULAVIA_OPEN_DIALOG"},
@@ -479,7 +484,7 @@ local lookupTable =
     {"Bastok_Mines", "Rodellieux", xi.customShop.Rodellieux, xi.quest.fame_area.BASTOK, "RODELLIEUX_OPEN_DIALOG"},
     {"Bastok_Mines", "Tibelda", xi.customShop.Tibelda, xi.quest.fame_area.BASTOK, "TIBELDA_OPEN_DIALOG"},
     --Metalworks
-    {"Metalworks", "Takiyah", xi.customShop.Takiyah, xi.quest.fame_area.BASTOK, "TAKIYAH_OPEN_DIALOG"},
+    {"Metalworks", "Takiyah", xi.customShop.Takiyah, xi.quest.fame_area.BASTOK, "TAKIYAH_OPEN_DIALOG"}, --ID IS 17748138??? ROCKEATERWUT
     --Northern Sandoria
     {"Northern_San_dOria", "Antonian", xi.customShop.Antonian, xi.quest.fame_area.SANDORIA, "ANTONIAN_OPEN_DIALOG"},
     {"Northern_San_dOria", "Attarena", xi.customShop.Attarena, xi.quest.fame_area.SANDORIA, "ATTARENA_OPEN_DIALOG"},
