@@ -7,10 +7,10 @@ require("modules/module_utils")
 local m = Module:new("conquest_npc_shop_always_open")
 
 xi = xi or {}
-xi.customshop = xi.customshop or {}
+xi.customShop = xi.customShop or {}
 
 --Bastok Markets
-xi.customshop.Oggodett =
+xi.customShop.Oggodett =
 {
     631,    36,    -- Horo Flour
     629,    43,    -- Millioncorn
@@ -19,7 +19,7 @@ xi.customshop.Oggodett =
     841,    36,     -- Yagudo Feather
 }
 
-xi.customshop.Yafafa =
+xi.customShop.Yafafa =
 {
     4503,  184,    --Buburimu Grape
     1120, 1620,    --Casablanca
@@ -28,7 +28,7 @@ xi.customshop.Yafafa =
     4445,   40,     --Yagudo Cherry
 }
 
-xi.customshop.SomnPaemn =
+xi.customShop.SomnPaemn =
 {
     689,  33,    --Lauan Log
     619,  43,    --Popoto
@@ -38,7 +38,7 @@ xi.customshop.SomnPaemn =
 }
 
 --Bastok Mines
-xi.customshop.Aulavia =
+xi.customShop.Aulavia =
 {
     636,   119,    -- Chamomile
     864,    88,    -- Fish Scales
@@ -46,7 +46,7 @@ xi.customshop.Aulavia =
     1410, 1656,     -- Sweet William
 }
 
-xi.customshop.Emaliveulaux =
+xi.customShop.Emaliveulaux =
 {
     1523,  290, -- Apple Mint
     5164, 1945, -- Ground Wasabi
@@ -55,7 +55,7 @@ xi.customshop.Emaliveulaux =
     1695,  920, -- Habanero Peppers
 }
 
-xi.customshop.Faustin =
+xi.customShop.Faustin =
 {
     639, 110,    -- Chestnut
     4389, 29,    -- San d'Orian Carrot
@@ -63,13 +63,13 @@ xi.customshop.Faustin =
     4431, 69,     -- San d'Orian Grape
 }
 
-xi.customshop.Galdeo =
+xi.customShop.Galdeo =
 {
     623,   119,    -- Bay Leaves
     4154, 6440,    -- Holy Water
 }
 
-xi.customshop.Mille =
+xi.customShop.Mille =
 {
     688, 18,    -- Arrowwood Log
     698, 88,    -- Ash Log
@@ -77,27 +77,27 @@ xi.customshop.Mille =
     621, 25,     -- Crying Mustard
 }
 
-xi.customshop.Rodellieux =
+xi.customShop.Rodellieux =
 {
     4571, 90, -- Beaugreens
     4363, 39, -- Faerie Apple
     691,  54, -- Maple Log
 }
 
-xi.customshop.Tibelda =
+xi.customShop.Tibelda =
 {
     4382,  29, --Frost Turnip
     638,  170, --Sage
 }
 
 --Metalworks
-xi.customshop.Takiyah =
+xi.customShop.Takiyah =
 {
     954, 4121,    -- Magic Pot Shard
 }
 
 --Northern Sandoria
-xi.customshop.Antonian =
+xi.customShop.Antonian =
 {
     631,   36,    -- Horo Flour
     629,   43,    -- Millioncorn
@@ -106,18 +106,18 @@ xi.customshop.Antonian =
     4505,  90,    -- Sunflower Seeds
 }
 
-xi.customshop.Attarena =
+xi.customShop.Attarena =
 {
     623,   119,    -- Bay Leaves
     4154, 6440,    -- Holy Water
 }
 
-xi.customshop.Eugballion =
+xi.customShop.Eugballion =
 {
     954, 4121,    -- Magic Pot Shard
 }
 
-xi.customshop.Millechuca =
+xi.customShop.Millechuca =
 {
     636,   119,    -- Chamomile
     864,    88,    -- Fish Scales
@@ -125,13 +125,13 @@ xi.customshop.Millechuca =
     1410, 1656,    -- Sweet William
 }
 
-xi.customshop.Palguevion =
+xi.customShop.Palguevion =
 {
     4382,  29,    -- Frost Turnip
     638,  170,    -- Sage
 }
 
-xi.customshop.Vichuel =
+xi.customShop.Vichuel =
 {
     4571, 90,    -- Beaugreens
     4363, 39,    -- Faerie Apple
@@ -139,7 +139,7 @@ xi.customshop.Vichuel =
 }
 
 --Port Bastok
-xi.customshop.Bagnobrok =
+xi.customShop.Bagnobrok =
 {
     640,    11,    -- Copper Ore
     4450,  694,    -- Coral Fungus
@@ -148,7 +148,7 @@ xi.customshop.Bagnobrok =
     5165,  736,    -- Movalpolos Water
 }
 
-xi.customshop.Belka =
+xi.customShop.Belka =
 {
     4352,  128,    -- Derfland Pear
     617,   142,    -- Ginger
@@ -158,7 +158,7 @@ xi.customshop.Belka =
     951,   110,    -- Wijnruit
 }
 
-xi.customshop.Dhen_Tevryukoh =
+xi.customShop.Dhen_Tevryukoh =
 {
     1413, 1656,    -- Cattleya
     628,   239,    -- Cinnamon
@@ -166,7 +166,7 @@ xi.customshop.Dhen_Tevryukoh =
     721,   147,    -- Rattan Lumber
 }
 
-xi.customshop.Evelyn =
+xi.customShop.Evelyn =
 {
     1108, 703,    -- Sulfur
     619,   43,    -- Popoto
@@ -174,7 +174,7 @@ xi.customshop.Evelyn =
     4388,  40,    -- Eggplant
 }
 
-xi.customshop.Rosswald =
+xi.customShop.Rosswald =
 {
     4372,   44,    -- Giant Sheep Meat
     622,    44,    -- Dried Marjoram
@@ -185,14 +185,14 @@ xi.customshop.Rosswald =
     4378,   55,    -- Selbina Milk
 }
 
-xi.customshop.Vattian =
+xi.customShop.Vattian =
 {
     916,  855,    -- Cactuar Needle
     4412, 299,    -- Thundermelon
     4491, 184,    -- Watermelon
 }
 
-xi.customshop.Zoby_Quhyo =
+xi.customShop.Zoby_Quhyo =
 {
     626,   234,    -- Black Pepper
     612,    55,    -- Kazham Peppers
@@ -204,7 +204,7 @@ xi.customshop.Zoby_Quhyo =
 }
 
 --Port Sandoria
-xi.customshop.Bonmaurieut =
+xi.customShop.Bonmaurieut =
 {
     1413, 1656,    -- Cattleya
     628,   239,    -- Cinnamon
@@ -212,7 +212,7 @@ xi.customshop.Bonmaurieut =
     721,   147,    -- Rattan Lumber
 }
 
-xi.customshop.Deguerendars =
+xi.customShop.Deguerendars =
 {
     1523,  290,    -- Apple Mint
     5164, 1945,    -- Ground Wasabi
@@ -221,7 +221,7 @@ xi.customshop.Deguerendars =
     1695,  920,    -- Habanero Peppers
 }
 
-xi.customshop.Fiva =
+xi.customShop.Fiva =
 {
     4503,  184,    -- Buburimu Grape
     1120, 1620,    -- Casablanca
@@ -230,7 +230,7 @@ xi.customshop.Fiva =
     4445,   40,    -- Yagudo Cherry
 }
 
-xi.customshop.Milva =
+xi.customShop.Milva =
 {
     4444, 22,    -- Rarab Tail
     689,  33,    -- Lauan Log
@@ -239,7 +239,7 @@ xi.customshop.Milva =
     635,  18,    -- Windurstian Tea Leaves
 }
 
-xi.customshop.Nimia =
+xi.customShop.Nimia =
 {
     612,    55,    -- Kazham Peppers
     4432,   55,    -- Kazham Pineapple
@@ -250,14 +250,14 @@ xi.customshop.Nimia =
     1411, 1656,    -- Phalaenopsis
 }
 
-xi.customshop.Patolle =
+xi.customShop.Patolle =
 {
     916,  855,    -- Cactuar Needle
     4412, 299,    -- Thundermelon
     4491, 184,    -- Watermelon
 }
 
-xi.customshop.Vendavoq =
+xi.customShop.Vendavoq =
 {
     640,    11,    -- Copper Ore
     4450,  694,    -- Coral Fungus
@@ -267,7 +267,7 @@ xi.customshop.Vendavoq =
 }
 
 --Port Windurst
-xi.customshop.Alizabe =
+xi.customShop.Alizabe =
 {
     1523,  290,    -- Apple Mint
     5164, 1945,    -- Ground Wasabi
@@ -276,7 +276,7 @@ xi.customshop.Alizabe =
     1695,  920,    -- Habanero Peppers
 }
 
-xi.customshop.Lebondur =
+xi.customShop.Lebondur =
 {
     636,   119,    -- Chamomile
     864,    88,    -- Fish Scales
@@ -284,7 +284,7 @@ xi.customshop.Lebondur =
     1410, 1656,    -- Sweet William
 }
 
-xi.customshop.Posso_Ruhbini =
+xi.customShop.Posso_Ruhbini =
 {
     688, 18,    -- Arrowwood Log
     698, 87,    -- Ash Log
@@ -292,7 +292,7 @@ xi.customshop.Posso_Ruhbini =
     621, 25,    -- Crying Mustard
 }
 
-xi.customshop.Sattsuh_Ahkanpari =
+xi.customShop.Sattsuh_Ahkanpari =
 {
     1413, 1656,    -- Cattleya
     628,   239,    -- Cinnamon
@@ -300,14 +300,14 @@ xi.customshop.Sattsuh_Ahkanpari =
     721,   147,    -- Rattan Lumber
 }
 
-xi.customshop.Sheia_Pohrichamaha =
+xi.customShop.Sheia_Pohrichamaha =
 {
     4571, 90,    -- Beaugreens
     4363, 39,    -- Faerie Apple
     691,  54,    -- Maple Log
 }
 
-xi.customshop.Zoreen =
+xi.customShop.Zoreen =
 {
     4382, 29,    -- Frost Turnip
     638, 170,    -- Sage
@@ -315,7 +315,7 @@ xi.customshop.Zoreen =
 
 --Southern Sandoria
 
-xi.customshop.Apairemant =
+xi.customShop.Apairemant =
 {
     1108, 703,    -- Sulfur
     619,   43,    -- Popoto
@@ -323,7 +323,7 @@ xi.customshop.Apairemant =
     4388,  40,    -- Eggplant
 }
 
-xi.customshop.Corua =
+xi.customShop.Corua =
 {
     4389,  29,    -- San d'Orian Carrot
     4431,  69,    -- San d'Orian Grape
@@ -331,7 +331,7 @@ xi.customshop.Corua =
     610,   55,    -- San d'Orian Flour
 }
 
-xi.customshop.Machielle =
+xi.customShop.Machielle =
 {
     688, 18,    -- Arrowwood Log
     621, 25,    -- Crying Mustard
@@ -339,7 +339,7 @@ xi.customshop.Machielle =
     698, 88,    -- Ash Log
 }
 
-xi.customshop.Phamelise =
+xi.customShop.Phamelise =
 {
     4372,   44,    -- Giant Sheep Meat
     622,    44,    -- Dried Marjoram
@@ -350,7 +350,7 @@ xi.customshop.Phamelise =
     4378,   55,    -- Selbina Milk
 }
 
-xi.customshop.Pourette =
+xi.customShop.Pourette =
 {
     4352,  128,    -- Derfland Pear
     617,   142,    -- Ginger
@@ -361,7 +361,7 @@ xi.customshop.Pourette =
 }
 
 --Windurst Waters
-xi.customshop.Ahyeekih =
+xi.customShop.Ahyeekih =
 {
     4503,   184,  -- Buburimu Grape
     1120,  1620,  -- Casablanca
@@ -370,7 +370,7 @@ xi.customshop.Ahyeekih =
     4445,    40   -- Yagudo Cherry
 }
 
-xi.customshop.BaehuFaehu =
+xi.customShop.BaehuFaehu =
 {
     4444,  22,  -- Rarab Tail
     689,   33,  -- Lauan Log
@@ -379,7 +379,7 @@ xi.customshop.BaehuFaehu =
     635,   18   -- Windurstian Tea Leaves
 }
 
-xi.customshop.Fomina =
+xi.customShop.Fomina =
 {
     612,     55,  -- Kazham Peppers
     4432,    55,  -- Kazham Pineapple
@@ -390,7 +390,7 @@ xi.customshop.Fomina =
     1411,  1656   -- Phalaenopsis
 }
 
-xi.customshop.Jourille =
+xi.customShop.Jourille =
 {
     639,   110,  -- Chestnut
     4389,   29,  -- San d'Orian Carrot
@@ -398,7 +398,7 @@ xi.customshop.Jourille =
     4431,   69,  -- San d'Orian Grape
 }
 
-xi.customshop.Maqu_Molpih =
+xi.customShop.Maqu_Molpih =
 {
     631,    36,  -- Horo Flour
     629,    44,  -- Millioncorn
@@ -407,13 +407,13 @@ xi.customshop.Maqu_Molpih =
     841,    36   -- Yagudo Feather
 }
 
-xi.customshop.Otete =
+xi.customShop.Otete =
 {
     623,    119, -- Bay Leaves
     4154,  6440  -- Holy Water
 }
 
-xi.customshop.Prestapiq =
+xi.customShop.Prestapiq =
 {
     640,    11,   --Copper Ore
     4450,   694,   --Coral Fungus
@@ -423,7 +423,7 @@ xi.customshop.Prestapiq =
 }
 
 --Windurst Woods
-xi.customshop.Bin_Stejihna =
+xi.customShop.Bin_Stejihna =
 {
     1840,  1840,  -- Semolina
     4372,    44,  -- Giant Sheep Meat
@@ -434,19 +434,19 @@ xi.customshop.Bin_Stejihna =
     4378,    55   -- Selbina Milk
 }
 
-xi.customshop.Millerovieunet =
+xi.customShop.Millerovieunet =
 {
     954,  4032  -- Magic Pot Shard
 }
 
-xi.customshop.Nhobi_Zalkia =
+xi.customShop.Nhobi_Zalkia =
 {
     916,   855,  -- Cactuar Needle
     4412,  299,  -- Thundermelon
     4491,  184   -- Watermelon
 }
 
-xi.customshop.Nya_Labiccio =
+xi.customShop.Nya_Labiccio =
 {
     1108,  703, -- Sulfur
     619,    43, -- Popoto
@@ -454,7 +454,7 @@ xi.customshop.Nya_Labiccio =
     4388,   40  -- Eggplant
 }
 
-xi.customshop.TaraihiPerunhi =
+xi.customShop.TaraihiPerunhi =
 {
     4352,  128, -- Derfland Pear
     617,   142, -- Ginger
@@ -467,69 +467,69 @@ xi.customshop.TaraihiPerunhi =
 local lookupTable =
 {
     --Bastok Markets
-    {"Bastok_Markets", "Oggodett", xi.customshop.Oggodett, xi.quest.fame_area.BASTOK, "OGGODETT_OPEN_DIALOG"},
-    {"Bastok_Markets", "Yafafa", xi.customshop.Yafafa, xi.quest.fame_area.BASTOK, "YAFOF_OPEN_DIALOG"},
-    {"Bastok_Markets", "Somn-Paemn", xi.customshop.SomnPaemn, xi.quest.fame_area.BASTOK, "SOMNPAEMN_OPEN_DIALOG"},
+    {"Bastok_Markets", "Oggodett", xi.customShop.Oggodett, xi.quest.fame_area.BASTOK, "OGGODETT_OPEN_DIALOG"},
+    {"Bastok_Markets", "Yafafa", xi.customShop.Yafafa, xi.quest.fame_area.BASTOK, "YAFOF_OPEN_DIALOG"},
+    {"Bastok_Markets", "Somn-Paemn", xi.customShop.SomnPaemn, xi.quest.fame_area.BASTOK, "SOMNPAEMN_OPEN_DIALOG"},
     --Bastok Mines
-    {"Bastok_Mines", "Aulavia", xi.customshop.Aulavia, xi.quest.fame_area.BASTOK, "AULAVIA_OPEN_DIALOG"},
-    {"Bastok_Mines", "Emaliveulaux", xi.customshop.Emaliveulaux, xi.quest.fame_area.BASTOK, "EMALIVEULAUX_OPEN_DIALOG"},
-    {"Bastok_Mines", "Faustin", xi.customshop.Faustin, xi.quest.fame_area.BASTOK, "FAUSTIN_OPEN_DIALOG"},
-    {"Bastok_Mines", "Galdeo", xi.customshop.Galdeo, xi.quest.fame_area.BASTOK, "GALDEO_OPEN_DIALOG"},
-    {"Bastok_Mines", "Mille", xi.customshop.Mille, xi.quest.fame_area.BASTOK, "MILLE_OPEN_DIALOG"},
-    {"Bastok_Mines", "Rodellieux", xi.customshop.Rodellieux, xi.quest.fame_area.BASTOK, "RODELLIEUX_OPEN_DIALOG"},
-    {"Bastok_Mines", "Tibelda", xi.customshop.Tibelda, xi.quest.fame_area.BASTOK, "TIBELDA_OPEN_DIALOG"},
+    {"Bastok_Mines", "Aulavia", xi.customShop.Aulavia, xi.quest.fame_area.BASTOK, "AULAVIA_OPEN_DIALOG"},
+    {"Bastok_Mines", "Emaliveulaux", xi.customShop.Emaliveulaux, xi.quest.fame_area.BASTOK, "EMALIVEULAUX_OPEN_DIALOG"},
+    {"Bastok_Mines", "Faustin", xi.customShop.Faustin, xi.quest.fame_area.BASTOK, "FAUSTIN_OPEN_DIALOG"},
+    {"Bastok_Mines", "Galdeo", xi.customShop.Galdeo, xi.quest.fame_area.BASTOK, "GALDEO_OPEN_DIALOG"},
+    {"Bastok_Mines", "Mille", xi.customShop.Mille, xi.quest.fame_area.BASTOK, "MILLE_OPEN_DIALOG"},
+    {"Bastok_Mines", "Rodellieux", xi.customShop.Rodellieux, xi.quest.fame_area.BASTOK, "RODELLIEUX_OPEN_DIALOG"},
+    {"Bastok_Mines", "Tibelda", xi.customShop.Tibelda, xi.quest.fame_area.BASTOK, "TIBELDA_OPEN_DIALOG"},
     --Metalworks
-    {"Metalworks", "Takiyah", xi.customshop.Takiyah, xi.quest.fame_area.BASTOK, "TAKIYAH_OPEN_DIALOG"},
+    {"Metalworks", "Takiyah", xi.customShop.Takiyah, xi.quest.fame_area.BASTOK, "TAKIYAH_OPEN_DIALOG"},
     --Northern Sandoria
-    {"Northern_San_dOria", "Antonian", xi.customshop.Antonian, xi.quest.fame_area.SANDORIA, "ANTONIAN_OPEN_DIALOG"},
-    {"Northern_San_dOria", "Attarena", xi.customshop.Attarena, xi.quest.fame_area.SANDORIA, "ATTARENA_OPEN_DIALOG"},
-    {"Northern_San_dOria", "Eugballion", xi.customshop.Eugballion, xi.quest.fame_area.SANDORIA, "EUGBALLION_OPEN_DIALOG"},
-    {"Northern_San_dOria", "Millechuca", xi.customshop.Millechuca, xi.quest.fame_area.SANDORIA, "MILLECHUCA_OPEN_DIALOG"},
-    {"Northern_San_dOria", "Palguevion", xi.customshop.Palguevion, xi.quest.fame_area.SANDORIA, "PALGUEVION_OPEN_DIALOG"},
-    {"Northern_San_dOria", "Vichuel", xi.customshop.Vichuel, xi.quest.fame_area.SANDORIA, "VICHUEL_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Antonian", xi.customShop.Antonian, xi.quest.fame_area.SANDORIA, "ANTONIAN_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Attarena", xi.customShop.Attarena, xi.quest.fame_area.SANDORIA, "ATTARENA_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Eugballion", xi.customShop.Eugballion, xi.quest.fame_area.SANDORIA, "EUGBALLION_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Millechuca", xi.customShop.Millechuca, xi.quest.fame_area.SANDORIA, "MILLECHUCA_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Palguevion", xi.customShop.Palguevion, xi.quest.fame_area.SANDORIA, "PALGUEVION_OPEN_DIALOG"},
+    {"Northern_San_dOria", "Vichuel", xi.customShop.Vichuel, xi.quest.fame_area.SANDORIA, "VICHUEL_OPEN_DIALOG"},
     --Port Bastok
-    {"Port_Bastok", "Bagnobrok", xi.customshop.Bagnobrok, xi.quest.fame_area.BASTOK, "BAGNOBROK_OPEN_DIALOG"},
-    {"Port_Bastok", "Belka", xi.customshop.Belka, xi.quest.fame_area.BASTOK, "BELKA_OPEN_DIALOG"},
-    {"Port_Bastok", "Dhen_Tevryukoh", xi.customshop.Dhen_Tevryukoh, xi.quest.fame_area.BASTOK, "DHENTEVRYUKOH_OPEN_DIALOG"},
-    {"Port_Bastok", "Evelyn", xi.customshop.Evelyn, xi.quest.fame_area.BASTOK, "EVELYN_OPEN_DIALOG"},
-    {"Port_Bastok", "Rosswald", xi.customshop.Rosswald, xi.quest.fame_area.BASTOK, "ROSSWALD_OPEN_DIALOG"},
-    {"Port_Bastok", "Vattian", xi.customshop.Vattian, xi.quest.fame_area.BASTOK, "VATTIAN_OPEN_DIALOG"},
-    {"Port_Bastok", "Zoby_Quhyo", xi.customshop.Zoby_Quhyo, xi.quest.fame_area.BASTOK, "ZOBYQUHYO_OPEN_DIALOG"},
+    {"Port_Bastok", "Bagnobrok", xi.customShop.Bagnobrok, xi.quest.fame_area.BASTOK, "BAGNOBROK_OPEN_DIALOG"},
+    {"Port_Bastok", "Belka", xi.customShop.Belka, xi.quest.fame_area.BASTOK, "BELKA_OPEN_DIALOG"},
+    {"Port_Bastok", "Dhen_Tevryukoh", xi.customShop.Dhen_Tevryukoh, xi.quest.fame_area.BASTOK, "DHENTEVRYUKOH_OPEN_DIALOG"},
+    {"Port_Bastok", "Evelyn", xi.customShop.Evelyn, xi.quest.fame_area.BASTOK, "EVELYN_OPEN_DIALOG"},
+    {"Port_Bastok", "Rosswald", xi.customShop.Rosswald, xi.quest.fame_area.BASTOK, "ROSSWALD_OPEN_DIALOG"},
+    {"Port_Bastok", "Vattian", xi.customShop.Vattian, xi.quest.fame_area.BASTOK, "VATTIAN_OPEN_DIALOG"},
+    {"Port_Bastok", "Zoby_Quhyo", xi.customShop.Zoby_Quhyo, xi.quest.fame_area.BASTOK, "ZOBYQUHYO_OPEN_DIALOG"},
     --Port Sandoria
-    {"Port_San_dOria", "Bonmaurieut", xi.customshop.Bonmaurieut, xi.quest.fame_area.SANDORIA, "BONMAURIEUT_OPEN_DIALOG"},
-    {"Port_San_dOria", "Deguerendars", xi.customshop.Deguerendars, xi.quest.fame_area.SANDORIA, "DEGUERENDARS_OPEN_DIALOG"},
-    {"Port_San_dOria", "Fiva", xi.customshop.Fiva, xi.quest.fame_area.SANDORIA, "FIVA_OPEN_DIALOG"},
-    {"Port_San_dOria", "Milva", xi.customshop.Milva, xi.quest.fame_area.SANDORIA, "MILVA_OPEN_DIALOG"},
-    {"Port_San_dOria", "Nimia", xi.customshop.Nimia, xi.quest.fame_area.SANDORIA, "NIMIA_OPEN_DIALOG"},
-    {"Port_San_dOria", "Patolle", xi.customshop.Patolle, xi.quest.fame_area.SANDORIA, "PATOLLE_OPEN_DIALOG"},
-    {"Port_San_dOria", "Vendavoq", xi.customshop.Vendavoq, xi.quest.fame_area.SANDORIA, "VENDAVOQ_OPEN_DIALOG"},
+    {"Port_San_dOria", "Bonmaurieut", xi.customShop.Bonmaurieut, xi.quest.fame_area.SANDORIA, "BONMAURIEUT_OPEN_DIALOG"},
+    {"Port_San_dOria", "Deguerendars", xi.customShop.Deguerendars, xi.quest.fame_area.SANDORIA, "DEGUERENDARS_OPEN_DIALOG"},
+    {"Port_San_dOria", "Fiva", xi.customShop.Fiva, xi.quest.fame_area.SANDORIA, "FIVA_OPEN_DIALOG"},
+    {"Port_San_dOria", "Milva", xi.customShop.Milva, xi.quest.fame_area.SANDORIA, "MILVA_OPEN_DIALOG"},
+    {"Port_San_dOria", "Nimia", xi.customShop.Nimia, xi.quest.fame_area.SANDORIA, "NIMIA_OPEN_DIALOG"},
+    {"Port_San_dOria", "Patolle", xi.customShop.Patolle, xi.quest.fame_area.SANDORIA, "PATOLLE_OPEN_DIALOG"},
+    {"Port_San_dOria", "Vendavoq", xi.customShop.Vendavoq, xi.quest.fame_area.SANDORIA, "VENDAVOQ_OPEN_DIALOG"},
     --Port Windurst
-    {"Port_Windurst", "Alizabe", xi.customshop.Alizabe, xi.quest.fame_area.WINDURST, "ALIZABE_OPEN_DIALOG"},
-    {"Port_Windurst", "Lebondur", xi.customshop.Lebondur, xi.quest.fame_area.WINDURST, "LEBONDUR_OPEN_DIALOG"},
-    {"Port_Windurst", "Posso_Ruhbini", xi.customshop.Posso_Ruhbini, xi.quest.fame_area.WINDURST, "POSSORUHBINI_OPEN_DIALOG"},
-    {"Port_Windurst", "Sattsuh_Ahkanpari", xi.customshop.Sattsuh_Ahkanpari, xi.quest.fame_area.WINDURST, "SATTSUHAHKANPARI_OPEN_DIALOG"},
-    {"Port_Windurst", "Sheia_Pohrichamaha", xi.customshop.Sheia_Pohrichamaha, xi.quest.fame_area.WINDURST, "SHEIAPOHRICHAMAHA_OPEN_DIALOG"},
-    {"Port_Windurst", "Zoreen", xi.customshop.Zoreen, xi.quest.fame_area.WINDURST, "ZOREEN_OPEN_DIALOG"},
+    {"Port_Windurst", "Alizabe", xi.customShop.Alizabe, xi.quest.fame_area.WINDURST, "ALIZABE_OPEN_DIALOG"},
+    {"Port_Windurst", "Lebondur", xi.customShop.Lebondur, xi.quest.fame_area.WINDURST, "LEBONDUR_OPEN_DIALOG"},
+    {"Port_Windurst", "Posso_Ruhbini", xi.customShop.Posso_Ruhbini, xi.quest.fame_area.WINDURST, "POSSORUHBINI_OPEN_DIALOG"},
+    {"Port_Windurst", "Sattsuh_Ahkanpari", xi.customShop.Sattsuh_Ahkanpari, xi.quest.fame_area.WINDURST, "SATTSUHAHKANPARI_OPEN_DIALOG"},
+    {"Port_Windurst", "Sheia_Pohrichamaha", xi.customShop.Sheia_Pohrichamaha, xi.quest.fame_area.WINDURST, "SHEIAPOHRICHAMAHA_OPEN_DIALOG"},
+    {"Port_Windurst", "Zoreen", xi.customShop.Zoreen, xi.quest.fame_area.WINDURST, "ZOREEN_OPEN_DIALOG"},
     --Southern Sandoria
-    {"Southern_San_dOria", "Apairemant", xi.customshop.Apairemant, xi.quest.fame_area.SANDORIA, "APAIREMANT_OPEN_DIALOG"},
-    {"Southern_San_dOria", "Corua", xi.customshop.Corua, xi.quest.fame_area.SANDORIA, "CORUA_OPEN_DIALOG"},
-    {"Southern_San_dOria", "Machielle", xi.customshop.Machielle, xi.quest.fame_area.SANDORIA, "MACHIELLE_OPEN_DIALOG"},
-    {"Southern_San_dOria", "Phamelise", xi.customshop.Phamelise, xi.quest.fame_area.SANDORIA, "PHAMELISE_OPEN_DIALOG"},
-    {"Southern_San_dOria", "Pourette", xi.customshop.Pourette, xi.quest.fame_area.SANDORIA, "POURETTE_OPEN_DIALOG"},
+    {"Southern_San_dOria", "Apairemant", xi.customShop.Apairemant, xi.quest.fame_area.SANDORIA, "APAIREMANT_OPEN_DIALOG"},
+    {"Southern_San_dOria", "Corua", xi.customShop.Corua, xi.quest.fame_area.SANDORIA, "CORUA_OPEN_DIALOG"},
+    {"Southern_San_dOria", "Machielle", xi.customShop.Machielle, xi.quest.fame_area.SANDORIA, "MACHIELLE_OPEN_DIALOG"},
+    {"Southern_San_dOria", "Phamelise", xi.customShop.Phamelise, xi.quest.fame_area.SANDORIA, "PHAMELISE_OPEN_DIALOG"},
+    {"Southern_San_dOria", "Pourette", xi.customShop.Pourette, xi.quest.fame_area.SANDORIA, "POURETTE_OPEN_DIALOG"},
     --Windurst Waters
-    {"Windurst_Waters", "Ahyeekih", xi.customshop.Ahyeekih, xi.quest.fame_area.WINDURST, "AHYEEKIH_OPEN_DIALOG"},
-    {"Windurst_Waters", "Baehu-Faehu", xi.customshop.BaehuFaehu, xi.quest.fame_area.WINDURST, "BAEHUFAEHU_OPEN_DIALOG"},
-    {"Windurst_Waters", "Fomina", xi.customshop.Fomina, xi.quest.fame_area.WINDURST, "FOMINA_OPEN_DIALOG"},
-    {"Windurst_Waters", "Jourille", xi.customshop.Jourille, xi.quest.fame_area.WINDURST, "JOURILLE_OPEN_DIALOG"},
-    {"Windurst_Waters", "Maqu_Molpih", xi.customshop.Maqu_Molpih, xi.quest.fame_area.WINDURST, "MAQUMOLPIH_OPEN_DIALOG"},
-    {"Windurst_Waters", "Otete", xi.customshop.Otete, xi.quest.fame_area.WINDURST, "OTETE_OPEN_DIALOG"},
-    {"Windurst_Waters", "Prestapiq", xi.customshop.Prestapiq, xi.quest.fame_area.WINDURST, "PRESTAPIQ_OPEN_DIALOG"},
+    {"Windurst_Waters", "Ahyeekih", xi.customShop.Ahyeekih, xi.quest.fame_area.WINDURST, "AHYEEKIH_OPEN_DIALOG"},
+    {"Windurst_Waters", "Baehu-Faehu", xi.customShop.BaehuFaehu, xi.quest.fame_area.WINDURST, "BAEHUFAEHU_OPEN_DIALOG"},
+    {"Windurst_Waters", "Fomina", xi.customShop.Fomina, xi.quest.fame_area.WINDURST, "FOMINA_OPEN_DIALOG"},
+    {"Windurst_Waters", "Jourille", xi.customShop.Jourille, xi.quest.fame_area.WINDURST, "JOURILLE_OPEN_DIALOG"},
+    {"Windurst_Waters", "Maqu_Molpih", xi.customShop.Maqu_Molpih, xi.quest.fame_area.WINDURST, "MAQUMOLPIH_OPEN_DIALOG"},
+    {"Windurst_Waters", "Otete", xi.customShop.Otete, xi.quest.fame_area.WINDURST, "OTETE_OPEN_DIALOG"},
+    {"Windurst_Waters", "Prestapiq", xi.customShop.Prestapiq, xi.quest.fame_area.WINDURST, "PRESTAPIQ_OPEN_DIALOG"},
     --Windurst Woods
-    {"Windurst_Woods", "Bin_Stejihna", xi.customshop.Bin_Stejihna, xi.quest.fame_area.WINDURST, "BIN_STEJIHNA_OPEN_DIALOG"},
-    {"Windurst_Woods", "Millerovieunet", xi.customshop.Millerovieunet, xi.quest.fame_area.WINDURST, "MILLEROVIEUNET_OPEN_DIALOG"},
-    {"Windurst_Woods", "Nhobi_Zalkia", xi.customshop.Nhobi_Zalkia, xi.quest.fame_area.WINDURST, "NHOBI_ZALKIA_OPEN_DIALOG"},
-    {"Windurst_Woods", "Nya_Labiccio", xi.customshop.Nya_Labiccio, xi.quest.fame_area.WINDURST, "NYALABICCIO_OPEN_DIALOG"},
-    {"Windurst_Woods", "Taraihi-Perunhi", xi.customshop.TaraihiPerunhi, xi.quest.fame_area.WINDURST, "TARAIHIPERUNHI_OPEN_DIALOG"},
+    {"Windurst_Woods", "Bin_Stejihna", xi.customShop.Bin_Stejihna, xi.quest.fame_area.WINDURST, "BIN_STEJIHNA_OPEN_DIALOG"},
+    {"Windurst_Woods", "Millerovieunet", xi.customShop.Millerovieunet, xi.quest.fame_area.WINDURST, "MILLEROVIEUNET_OPEN_DIALOG"},
+    {"Windurst_Woods", "Nhobi_Zalkia", xi.customShop.Nhobi_Zalkia, xi.quest.fame_area.WINDURST, "NHOBI_ZALKIA_OPEN_DIALOG"},
+    {"Windurst_Woods", "Nya_Labiccio", xi.customShop.Nya_Labiccio, xi.quest.fame_area.WINDURST, "NYALABICCIO_OPEN_DIALOG"},
+    {"Windurst_Woods", "Taraihi-Perunhi", xi.customShop.TaraihiPerunhi, xi.quest.fame_area.WINDURST, "TARAIHIPERUNHI_OPEN_DIALOG"},
 }
 
 for _, shop in pairs(lookupTable) do
