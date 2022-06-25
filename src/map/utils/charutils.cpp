@@ -3451,7 +3451,7 @@ namespace charutils
      ************************************************************************/
     EMobDifficulty CheckMob(uint8 charlvl, uint8 moblvl)
     {
-        uint32 baseExp = charutils::GetBaseExp(charlvl, moblvl);
+        uint32 baseExp = GetBaseExp(charlvl, moblvl);
 
         if (baseExp >= 400) return EMobDifficulty::IncrediblyTough;   // 400+
         if (baseExp >= 200) return EMobDifficulty::VeryTough;         // 200 - 399
