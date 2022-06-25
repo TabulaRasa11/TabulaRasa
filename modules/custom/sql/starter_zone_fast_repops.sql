@@ -50,3 +50,6 @@ UPDATE mob_groups SET respawntime='60' WHERE name='Bumblebee' AND zoneid='116';
 
 UPDATE mob_groups SET respawntime='60' WHERE name='Ding_Bats' AND zoneid='172';
 UPDATE mob_groups SET respawntime='60' WHERE name='Tunnel_Worm' AND zoneid='172';
+UPDATE mob_groups SET respawntime='60' WHERE name='Mouse_Bat' AND zoneid='172';
+UPDATE mob_groups SET respawntime='60' WHERE name='River_Crab' AND zoneid='172';
+
