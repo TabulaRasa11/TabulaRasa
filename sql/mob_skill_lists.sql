@@ -1,6 +1,5 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -3809,6 +3808,9 @@ INSERT INTO `mob_skill_lists` VALUES ('Puk_M',1169,1722);
 INSERT INTO `mob_skill_lists` VALUES ('Puk_M',1169,1723);
 
 -- Next available ID: 1170
+
+-- AirSkyBoat Skill Lists Start at 5000
+-- 5000 -> 5020 is Era Dynamis
 
 -- ------------------------------------------------------------
 -- Start of Ambuscade section

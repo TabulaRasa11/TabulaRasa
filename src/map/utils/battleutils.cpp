@@ -583,7 +583,8 @@ namespace battleutils
         WEATHER weakWeatherDouble[8]   = { WEATHER_SQUALL, WEATHER_HEAT_WAVE, WEATHER_BLIZZARDS, WEATHER_GALES,
                                            WEATHER_SAND_STORM, WEATHER_THUNDERSTORMS, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
         uint32  obi[8]                 = { 15435, 15436, 15437, 15438, 15439, 15440, 15441, 15442 };
-        Mod     resistarray[8]         = { Mod::FIRE_RES, Mod::ICE_RES, Mod::WIND_RES, Mod::EARTH_RES, Mod::THUNDER_RES, Mod::WATER_RES, Mod::LIGHT_RES, Mod::DARK_RES };
+        Mod     resistarray[8]         = { Mod::FIRE_MEVA, Mod::ICE_MEVA, Mod::WIND_MEVA, Mod::EARTH_MEVA,
+                                           Mod::THUNDER_MEVA, Mod::WATER_MEVA, Mod::LIGHT_MEVA, Mod::DARK_MEVA };
         bool    obiBonus               = false;
 
         double half      = (double)(PDefender->getMod(resistarray[element - 1])) / 100;
@@ -870,10 +871,8 @@ namespace battleutils
         // Deal with spikesEffect effect gear
         else if (PDefender->getMod(Mod::ITEM_SUBEFFECT) > 0)
         {
-            if (PDefender->objtype == TYPE_PC)
+            if (CCharEntity* PCharDef = dynamic_cast<CCharEntity*>(PDefender))
             {
-                CCharEntity* PCharDef = (CCharEntity*)PDefender;
-
                 for (auto&& slot : { SLOT_SUB, SLOT_BODY, SLOT_LEGS, SLOT_HEAD, SLOT_HANDS, SLOT_FEET })
                 {
                     CItemEquipment* PItem = PCharDef->getEquip(slot);
@@ -891,10 +890,11 @@ namespace battleutils
                         Action->spikesParam = battleutils::GetScaledItemModifier(PDefender, PItem, Mod::ITEM_ADDEFFECT_DMG);
                         chance              = battleutils::GetScaledItemModifier(PDefender, PItem, Mod::ITEM_ADDEFFECT_CHANCE);
 
-                        if (((CMobEntity*)PDefender)->m_HiPCLvl < PAttacker->GetMLevel())
+                        if (CMobEntity* PMobAtt = dynamic_cast<CMobEntity*>(PDefender))
                         {
-                            ((CMobEntity*)PDefender)->m_HiPCLvl = PAttacker->GetMLevel();
+                            PMobAtt->m_HiPCLvl = std::max(PMobAtt->m_HiPCLvl, PDefender->GetMLevel());
                         }
+
                         if (Action->spikesEffect && HandleSpikesEquip(PAttacker, PDefender, Action, (uint8)Action->spikesParam, Action->spikesEffect, chance))
                         {
                             return true;
@@ -1424,177 +1424,9 @@ namespace battleutils
      *                                                                       *
      ************************************************************************/
 
-    // TODO: remove function, move additional effects into items script files (deleting from switch as they get done)
     void HandleRangedAdditionalEffect(CCharEntity* PAttacker, CBattleEntity* PDefender, apAction_t* Action)
     {
-        /*  CItemWeapon* PAmmo = (CItemWeapon*)PAttacker->getStorage(LOC_INVENTORY)->GetItem(PAttacker->equip[SLOT_AMMO]);
-            //add effects dont have 100% proc, presume level dependant. 95% chance but -5% for each level diff.
-            //capped at 5% proc when mob is 18 (!!!) levels higher than you.
-            uint8 chance = 95;
-            if(PDefender->GetMLevel() > PAttacker->GetMLevel()){
-                chance -= 5*(PDefender->GetMLevel() - PAttacker->GetMLevel());
-                chance = std::clamp(chance,5,95);
-            }
-            if (WELL512::WELL512::GetRandomNumber(100) >= chance || PAmmo == nullptr){ return; }
-
-            switch(PAmmo->getID()){
-            case 18700:{ //Wind Arrow
-            //damage doesn't exceed ~67 unless wearing wind staff/iceday/weather
-            //there isn't a formula, but INT affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply AGI with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_WIND_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->AGI() - PDefender->AGI())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::WINDRES)/-100);
-
-                    damage = HandleStoneskin(PDefender, damage);
-                    //set damage TODO: handle resi st/staff/day
-                    Action->addEffectParam = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 18699:{ //Earth Arrow
-            //damage doesn't exceed ~67 unless wearing Earth staff/earthsday/weather
-            //there isn't a formula, but VIT affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply VIT with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_EARTH_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->VIT() - PDefender->VIT())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::EARTHRES)/-100);
-                    damage = HandleStoneskin(PDefender, damage);
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 18698:{ //Water Arrow
-            //damage doesn't exceed ~67 unless wearing light staff/iceday/weather
-            //there isn't a formula, but INT affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply MND with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_WATER_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->MND() - PDefender->MND())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::WATERRES)/-100);
-                    damage = HandleStoneskin(PDefender, damage);
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 18153:{ //Holy Bolt
-            //damage doesn't exceed ~67 unless wearing light staff/lightsday/weather
-            //there isn't a formula, but MND affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply MND with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_LIGHT_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->MND() - PDefender->MND())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::LIGHTRES)/-100);
-                    damage = HandleStoneskin(PDefender, damage);
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 17324:{ //Lightning Arrow
-            //damage doesn't exceed ~67
-            //there isn't a formula. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply DEX with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_LIGHTNING_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->DEX() - PDefender->DEX())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::THUNDERRES)/-100);
-                    damage = HandleStoneskin(PDefender, damage);
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 17323:{ //Ice Arrow
-            //damage doesn't exceed ~67 unless wearing ice staff/iceday/weather
-            //there isn't a formula, but INT affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply INT with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_ICE_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->INT() - PDefender->INT())/2;
-                    damage = std::clamp(damage,0,50);
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::ICERES)/-100);
-                    damage = HandleStoneskin(PDefender, damage);
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            case 17327: // Grand knights Arrow
-            case 17322:{ //Fire Arrow
-            //damage doesn't exceed ~67 unless wearing ice staff/iceday/weather
-            //there isn't a formula, but INT affects damage, so this is guesstimated. It seems to be level
-            //invarient since its used on harder monsters for damage occasionally. Assuming the modifier
-            //is simply INT with a degree of randomisation
-
-                    Action->additionalEffect = SUBEFFECT_FIRE_DAMAGE;
-                    Action->addEffectMessage = 163;
-
-                    //calculate damage
-                    uint8 damage = (PAttacker->INT() - PDefender->INT())/2;
-                    damage = std::clamp(damage,0,50);
-
-                    damage += 10; //10~60
-                    damage += WELL512::GetRandomNumber(8); //10~67 randomised
-                    //set damage TODO: handle resist/staff/day
-                    damage += (float)damage * ((float)PDefender->getMod(Mod::FIRE_RES)/-100);
-
-                    if(PAmmo->getID() == 17327){
-                        damage *= 2;
-                    }
-                    damage = HandleStoneskin(PDefender, damage);
-
-                    Action->addEffectParam  = damage;
-                    PDefender->takeDamage(damage, PAttacker);
-                }
-                break;
-            }*/
+        // TODO: remove function
     }
 
     uint8 GetRangedHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, bool isBarrage, int8 accBonus)
@@ -1615,7 +1447,7 @@ namespace battleutils
 
             if (PItem != nullptr && PItem->isType(ITEM_WEAPON))
             {
-                acc = PChar->RACC(PItem->getSkillType());
+                acc = PChar->RACC(PItem->getSkillType(), distance(PChar->loc.p, PDefender->loc.p));
             }
 
             // Check For Ambush Merit - Ranged
@@ -1626,13 +1458,13 @@ namespace battleutils
         }
         else if (PAttacker->objtype == TYPE_PET && ((CPetEntity*)PAttacker)->getPetType() == PET_TYPE::AUTOMATON)
         {
-            acc = PAttacker->RACC(SKILL_AUTOMATON_RANGED);
+            acc = PAttacker->RACC(SKILL_AUTOMATON_RANGED, distance(PAttacker->loc.p, PDefender->loc.p));
         }
         else if (PAttacker->objtype == TYPE_TRUST)
         {
-            auto archery_acc      = PAttacker->RACC(SKILL_ARCHERY);
-            auto marksmanship_acc = PAttacker->RACC(SKILL_MARKSMANSHIP);
-            auto throwing_acc     = PAttacker->RACC(SKILL_THROWING);
+            auto archery_acc      = PAttacker->RACC(SKILL_ARCHERY, distance(PAttacker->loc.p, PDefender->loc.p));
+            auto marksmanship_acc = PAttacker->RACC(SKILL_MARKSMANSHIP, distance(PAttacker->loc.p, PDefender->loc.p));
+            auto throwing_acc     = PAttacker->RACC(SKILL_THROWING, distance(PAttacker->loc.p, PDefender->loc.p));
 
             acc = std::max({ archery_acc, marksmanship_acc, throwing_acc });
         }
@@ -1670,7 +1502,7 @@ namespace battleutils
 
             if (PItem != nullptr && PItem->isType(ITEM_WEAPON))
             {
-                rAttack = PChar->RATT(PItem->getSkillType(), PItem->getILvlSkill());
+                rAttack = PChar->RATT(PItem->getSkillType(), distance(PChar->loc.p, PDefender->loc.p), PItem->getILvlSkill());
             }
             else
             {
@@ -1682,13 +1514,13 @@ namespace battleutils
                 }
                 else
                 {
-                    rAttack = PChar->RATT(PItem->getSkillType(), PItem->getILvlSkill());
+                    rAttack = PChar->RATT(PItem->getSkillType(), distance(PChar->loc.p, PDefender->loc.p), PItem->getILvlSkill());
                 }
             }
         }
         else if (PAttacker->objtype == TYPE_PET && ((CPetEntity*)PAttacker)->getPetType() == PET_TYPE::AUTOMATON)
         {
-            rAttack = PAttacker->RATT(SKILL_AUTOMATON_RANGED);
+            rAttack = PAttacker->RATT(SKILL_AUTOMATON_RANGED, distance(PAttacker->loc.p, PDefender->loc.p));
         }
         else
         {
@@ -7024,6 +6856,107 @@ namespace battleutils
         if (absorbedMP > 0)
         {
             PDefender->addMP(absorbedMP);
+        }
+    }
+
+    float GetRangedDistanceCorrection(CBattleEntity* PBattleEntity, float distance)
+    {
+        CCharEntity* PChar = nullptr;
+
+        if (PBattleEntity->objtype == TYPE_PC)
+        {
+            PChar = (CCharEntity*)PBattleEntity;
+        }
+        else // Automaton
+        {
+            if (distance <= 3.0f) // Automaton will generally stay around 3' from the target.
+                return 1.0f;
+            if (distance <= 25.0f) // Beyond 3' linearly drop 1%/yalm
+                return 1.0f - (distance / 100.0f);
+
+            return 0.75f; // Cap at 0.75 modifier past 25 yalms
+        }
+
+        if (PChar == nullptr)
+        {
+            return 1.0f; // Just in case PChar is null, then we will just return full damage.
+        }
+
+        uint8 RMainType = 0;
+        uint8 RMainSub  = 0;
+
+        CItemEquipment* PRangedSlot = PChar->getEquip(SLOT_RANGED);
+
+        if (PRangedSlot)
+        {
+            RMainType = ((CItemWeapon*)PRangedSlot)->getSkillType();
+            RMainSub  = ((CItemWeapon*)PRangedSlot)->getSubSkillType();
+        }
+
+        bool LongBowCurve  = (RMainType == 25 && RMainSub == 1); // Longbows Only
+        bool CrossBowCurve = ((RMainType == 25 && RMainSub == 0) || (RMainType == 26 && RMainSub == 0)); // Crossbows and Shortbows
+        bool GunCurve      = (RMainType == 26 && RMainSub == 1); // Guns Only
+
+        if (LongBowCurve)
+        {
+            if (distance <= 3.00f) // <=3'
+                return 0.65f + ((1.67f * distance) / 100);
+            if (distance <= 5.00f) // <=5.0'
+                return 0.65f + ((2.60f * distance) / 100);
+            if (distance < 7.50f) // <7.5'
+                return 0.65f + ((4.66f * distance) / 100);
+            if (distance <= 10.50f) // Sweet Spot from 7.5' to 10.5'
+                return 1.00f;
+            if (distance <= 15.00f) // <=15.0'
+                return 1.00f + ((-1.78f * distance) / 100);
+            if (distance <= 20.00f) // <=20.0'
+                return 1.00f + ((-1.15f * distance) / 100);
+
+            return 1.00f + ((-0.90f * distance) / 100); // Default to >20' Curve w/o Cap
+        }
+        else if (CrossBowCurve)
+        {
+            if (distance <= 3.00f) // <=3'
+                return 0.65f + ((3.30f * distance) / 100);
+            if (distance <= 5.00f) // <=5'
+                return 0.65f + ((4.40f * distance) / 100);
+            if (distance < 6.00f) // <6'
+                return 0.65f + ((5.83f * distance) / 100);
+            if (distance <= 10.00f) // Sweet Spot from 6' to 10'
+                return 1.00f;
+            if (distance <= 15.00f) // <=15'
+                return 1.00f + ((-2.00f * distance) / 100);
+            if (distance <= 20.00f) // <=20'
+                return 1.00f + ((-1.10f * distance) / 100);
+
+            return 0.86f; // Default to >20' Curve w/ 86% Cap
+
+        }
+        else if (GunCurve)
+        {
+            if (distance <= 3.00f) // <=3'
+                return 0.75 + ((3.33f * distance) / 100);
+            if (distance < 4.50f) // <4.5'
+                return 0.75 + ((5.56f * distance) / 100);
+            if (distance <= 5.50f) // Sweet spot from 4.5' to 5.5'
+                return 1.00f;
+            if (distance <= 7.50f) // <=7.5'
+                return 1.00f + ((-2.50f * distance) / 100);
+            if (distance <= 10) // <=10'
+                return 1.00f + ((-2.22f * distance) / 100);
+            if (distance <= 15) // <=15'
+                return 1.00f + ((-1.26f * distance) / 100);
+            if (distance <= 20) // <=20'
+                return 1.00f + ((-0.96f * distance) / 100);
+
+            return 1.00f + ((-0.67f * distance) / 100);
+        }
+        else // Default to Throwing Curve
+        {
+            if (distance <= 1.0f)
+                return 1.00f; // Sweet Spot Under or at 1'
+
+            return 1.00f - ((1.00f * distance) / 100); // Lose 1%/yalm
         }
     }
 

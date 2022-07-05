@@ -200,6 +200,11 @@ cmake_install.cmake
 /conf/server_message_fr.conf
 
 # non-default settings script files containing server specific things
+<<<<<<< HEAD
+=======
+/scripts/settings/main.lua
+/settings/*.lua
+>>>>>>> ASB/staging
 
 # Tool/misc configs
 /tools/config.yaml

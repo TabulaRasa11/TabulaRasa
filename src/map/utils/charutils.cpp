@@ -222,7 +222,7 @@ namespace charutils
         }
 
         uint16 MeritBonus   = PChar->PMeritPoints->GetMeritValue(MERIT_MAX_HP, PChar);
-        PChar->health.maxhp = (int16)(map_config.player_hp_multiplier * (raceStat + jobStat + bonusStat + sJobStat) + MeritBonus);
+        PChar->health.maxhp = (int16)(settings::get<float>("map.PLAYER_HP_MULTIPLIER") * (raceStat + jobStat + bonusStat + sJobStat) + MeritBonus);
 
         // The beginning of the MP
 
@@ -239,7 +239,7 @@ namespace charutils
             if (grade::GetJobGrade(sjob, 1) != 0 && slvl > 0) // TODO: In this expression, an error
             {
                 raceStat =
-                    (grade::GetMPScale(grade, 0) + grade::GetMPScale(grade, scaleTo60Column) * (slvl - 1)) / map_config.sj_mp_divisor; // TODO: Here is a mistake
+                    (grade::GetMPScale(grade, 0) + grade::GetMPScale(grade, scaleTo60Column) * (slvl - 1)) / settings::get<float>("map.SJ_MP_DIVISOR"); // TODO: Here is a mistake
             }
         }
         else
@@ -261,11 +261,11 @@ namespace charutils
         if (slvl > 0)
         {
             grade    = grade::GetJobGrade(sjob, 1);
-            sJobStat = (grade::GetMPScale(grade, 0) + grade::GetMPScale(grade, scaleTo60Column) * (slvl - 1)) / map_config.sj_mp_divisor;
+            sJobStat = (grade::GetMPScale(grade, 0) + grade::GetMPScale(grade, scaleTo60Column) * (slvl - 1)) / settings::get<float>("map.SJ_MP_DIVISOR");
         }
 
         MeritBonus          = PChar->PMeritPoints->GetMeritValue(MERIT_MAX_MP, PChar);
-        PChar->health.maxmp = (int16)(map_config.player_mp_multiplier * (raceStat + jobStat + sJobStat) + MeritBonus); // MP calculation result
+        PChar->health.maxmp = (int16)(settings::get<float>("map.PLAYER_MP_MULTIPLIER") * (raceStat + jobStat + sJobStat) + MeritBonus); // MP calculation result
 
         // Start calculating Stats
 
@@ -316,7 +316,7 @@ namespace charutils
             MeritBonus = PChar->PMeritPoints->GetMeritValue(statMerit[StatIndex - 2], PChar);
 
             // Value output
-            ref<uint16>(&PChar->stats, counter) = (uint16)(map_config.player_stat_multiplier * (raceStat + jobStat + sJobStat) + MeritBonus);
+            ref<uint16>(&PChar->stats, counter) = (uint16)(settings::get<float>("map.PLAYER_STAT_MULTIPLIER") * (raceStat + jobStat + sJobStat) + MeritBonus);
             counter += 2;
         }
     }
@@ -957,13 +957,13 @@ namespace charutils
                         {
                             static_cast<CItemLinkshell*>(PItem)->SetLSType((LSTYPE)(PItem->getID() - 0x200));
                         }
-                        int8 EncodedString[16];
+                        int8 EncodedString[LinkshellStringLength];
                         EncodeStringLinkshell(sql->GetData(5), EncodedString);
                         PItem->setSignature(EncodedString);
                     }
                     else if (PItem->getFlag() & (ITEM_FLAG_INSCRIBABLE))
                     {
-                        int8 EncodedString[13];
+                        int8 EncodedString[SignatureStringLength];
                         EncodeStringSignature(sql->GetData(5), EncodedString);
                         PItem->setSignature(EncodedString);
                     }
@@ -1540,7 +1540,7 @@ namespace charutils
     {
         if (charutils::UpdateItem(PChar, container, slotID, -quantity) != 0)
         {
-            ShowNotice("Player %s DROPPING itemID: %s (%u) quantity: %u", PChar->GetName(), itemutils::GetItem(ItemID)->getName(), ItemID, quantity);
+            ShowInfo("Player %s DROPPING itemID: %s (%u) quantity: %u", PChar->GetName(), itemutils::GetItem(ItemID)->getName(), ItemID, quantity);
             PChar->pushPacket(new CMessageStandardPacket(nullptr, ItemID, quantity, MsgStd::ThrowAway));
             PChar->pushPacket(new CInventoryFinishPacket());
         }
@@ -1827,7 +1827,7 @@ namespace charutils
 
         if ((PChar->m_EquipBlock & (1 << equipSlotID)) || !(PItem->getJobs() & (1 << (PChar->GetMJob() - 1))) ||
             (PItem->getSuperiorLevel() > PChar->getMod(Mod::SUPERIOR_LEVEL)) ||
-            (PItem->getReqLvl() > (map_config.disable_gear_scaling ? PChar->GetMLevel() : PChar->jobs.job[PChar->GetMJob()])))
+            (PItem->getReqLvl() > (settings::get<bool>("map.DISABLE_GEAR_SCALING") ? PChar->GetMLevel() : PChar->jobs.job[PChar->GetMJob()])))
         {
             return false;
         }
@@ -2426,7 +2426,7 @@ namespace charutils
                 continue;
             }
 
-            if (PItem->getReqLvl() > (map_config.disable_gear_scaling ? PChar->GetMLevel() : PChar->jobs.job[PChar->GetMJob()]))
+            if (PItem->getReqLvl() > (settings::get<bool>("map.DISABLE_GEAR_SCALING") ? PChar->GetMLevel() : PChar->jobs.job[PChar->GetMJob()]))
             {
                 UnequipItem(PChar, slotID);
                 continue;
@@ -2978,7 +2978,7 @@ namespace charutils
             // Note this is no longer retail accurate, since now 'decent challenge' mobs allow to cap any skill.
 
             int16  Diff          = MaxSkill - CurSkill / 10;
-            double SkillUpChance = Diff / 5.0 + map_config.skillup_chance_multiplier * (2.0 - log10(1.0 + CurSkill / 100));
+            double SkillUpChance = Diff / 5.0 + settings::get<double>("map.SKILLUP_CHANCE_MULTIPLIER") * (2.0 - log10(1.0 + CurSkill / 100));
 
             double random = xirand::GetRandomNumber(1.);
 
@@ -3061,9 +3061,9 @@ namespace charutils
                 }
 
                 // Do skill amount multiplier (Will only be applied if default setting is changed)
-                if (map_config.skillup_amount_multiplier > 1)
+                if (settings::get<uint8>("map.SKILLUP_AMOUNT_MULTIPLIER") > 1)
                 {
-                    SkillAmount += (uint8)(SkillAmount * map_config.skillup_amount_multiplier);
+                    SkillAmount += (uint8)(SkillAmount * settings::get<uint8>("map.SKILLUP_AMOUNT_MULTIPLIER"));
                     if (SkillAmount > 9)
                     {
                         SkillAmount = 9;
@@ -3512,15 +3512,15 @@ namespace charutils
         uint32 gil    = PMob->GetRandomGil();
         uint32 gBonus = 0;
 
-        if (gil && map_config.mob_gil_multiplier >= 0)
+        if (gil && settings::get<float>("map.MOB_GIL_MULTIPLIER") >= 0.0f)
         {
-            gil = static_cast<uint32>(gil * map_config.mob_gil_multiplier);
+            gil = static_cast<uint32>(gil * settings::get<float>("map.MOB_GIL_MULTIPLIER"));
         }
 
-        if (map_config.all_mobs_gil_bonus > 0)
+        if (settings::get<uint8>("map.ALL_MOBS_GIL_BONUS"))
         {
-            gBonus = map_config.all_mobs_gil_bonus * PMob->GetMLevel();
-            gil += std::clamp<uint32>(gBonus, 1, map_config.max_gil_bonus);
+            gBonus = settings::get<uint8>("map.ALL_MOBS_GIL_BONUS") * PMob->GetMLevel();
+            gil += std::clamp<uint32>(gBonus, 1, settings::get<uint32>("map.MAX_GIL_BONUS"));
         }
 
         // Distribute gil to player/party/alliance
@@ -3562,23 +3562,248 @@ namespace charutils
         }
     }
 
+    uint16 ApplyTH(int16 m_THLvl, uint16 rate)
+    {
+        TracyZoneScoped;
+
+        float multi = 1.00f;
+        bool ultra_rare = (rate == 1);
+        bool super_rare = (rate == 5);
+        bool very_rare = (rate == 10);
+        bool rare = (rate == 50);
+        bool uncommon = (rate == 100);
+        bool common = (rate == 150);
+        bool very_common = (rate == 240);
+
+        if (ultra_rare)
+        {
+            if (m_THLvl < 3)
+            {
+                multi = 1.00f + (1.00f * m_THLvl);
+                return multi;
+            }
+            else if (m_THLvl < 7)
+            {
+                multi = 2.00f + (0.50f * (m_THLvl - 2));
+                return multi;
+            }
+            else if (m_THLvl < 12)
+            {
+                multi = 7.00f + (1.00f * (m_THLvl - 6));
+                return multi;
+            }
+            else if (m_THLvl < 14)
+            {
+                multi = 10.00f + (1.00f * (m_THLvl - 11));
+                return multi;
+            }
+            else
+            {
+                multi = 13.00f + (2.00f * (m_THLvl - 14));
+                return multi;
+            }
+        }
+        else if (super_rare)
+        {
+            if (m_THLvl < 3)
+            {
+                multi = 1.00f + (0.50f * m_THLvl);
+                return multi;
+            }
+            else if (m_THLvl < 8)
+            {
+                multi = 2.40f + (0.40f * (m_THLvl - 2));
+                return multi;
+            }
+            else if (m_THLvl < 10)
+            {
+                multi = 5.20f + (0.60f * (m_THLvl - 7));
+                return multi;
+            }
+            else if (m_THLvl < 11)
+            {
+                multi = 7.00f + (0.80f * (m_THLvl - 9));
+                return multi;
+            }
+            else
+            {
+                multi = 9.00f + (1.00f * (m_THLvl - 10));
+                return multi;
+            }
+        }
+        else if (very_rare)
+        {
+            if (m_THLvl < 3)
+            {
+                multi = 1.00f + (0.20f * m_THLvl);
+                return multi;
+            }
+            else if (m_THLvl < 8)
+            {
+                multi = 1.50f + (0.10f * (m_THLvl - 2));
+                return multi;
+            }
+            else if (m_THLvl < 12)
+            {
+                multi = 2.10f + (0.20f * (m_THLvl - 7));
+                return multi;
+            }
+            else if (m_THLvl < 14)
+            {
+                multi = 3.10f + (0.40f * (m_THLvl - 11));
+                return multi;
+            }
+            else
+            {
+                multi = 4.00f + (0.50f * (m_THLvl - 13));
+                return multi;
+            }
+        }
+        else if (rare)
+        {
+            if (m_THLvl < 3)
+             {
+                 multi = 1.00f + (0.50f * m_THLvl);
+                 return multi;
+             }
+             else if (m_THLvl < 8)
+             {
+                 multi = 2.40f + (0.40f * (m_THLvl - 2));
+                 return multi;
+             }
+             else if (m_THLvl < 10)
+             {
+                 multi = 5.20f + (0.60f * (m_THLvl - 7));
+                 return multi;
+             }
+             else if (m_THLvl < 11)
+             {
+                 multi = 7.00f + (0.80f * (m_THLvl - 9));
+                 return multi;
+             }
+             else
+             {
+                 multi = 9.00f + (1.00f * (m_THLvl - 10));
+                 return multi;
+             }
+        }
+        else if (uncommon)
+        {
+            if (m_THLvl < 2)
+            {
+                multi = 1.00f + (0.20f * m_THLvl);
+                return multi;
+            }
+            else if (m_THLvl < 4)
+            {
+                multi = 1.20f + (0.15f * (m_THLvl - 1));
+                return multi;
+            }
+            else if (m_THLvl < 8)
+            {
+                multi = 1.80f + (0.10f * (m_THLvl - 3));
+                return multi;
+            }
+            else if (m_THLvl < 10)
+            {
+                multi = 2.40f + (0.15f * (m_THLvl - 7));
+                return multi;
+            }
+            else if (m_THLvl < 11)
+            {
+                multi = 2.40f + (0.25f * (m_THLvl - 9));
+                return multi;
+            }
+            else
+            {
+                multi = 2.65f + (0.15f * (m_THLvl - 10));
+                return multi;
+            }
+        }
+        else if (common)
+        {
+            if (m_THLvl < 2)
+            {
+                multi = 1.00f + (1.00f * m_THLvl);
+                return multi;
+            }
+            else
+            {
+                multi = 2.00f + (0.17f * (m_THLvl - 1));
+                return multi;
+            }
+        }
+        else if (very_common)
+        {
+            if (m_THLvl < 2)
+            {
+                multi = 1.00f + (1.00f * m_THLvl);
+                return multi;
+            }
+            else if (m_THLvl < 3)
+            {
+                multi = 2.00f + (0.33f * (m_THLvl - 1));
+                return multi;
+            }
+            else if (m_THLvl < 5)
+            {
+                multi = 2.33f + (0.17f * (m_THLvl - 2));
+                return multi;
+            }
+            else if (m_THLvl < 6)
+            {
+                multi = 2.67f + (0.11f * (m_THLvl - 4));
+                return multi;
+            }
+            else if (m_THLvl < 7)
+            {
+                multi = 2.78f + (0.05f * (m_THLvl - 5));
+                return multi;
+            }
+            else if (m_THLvl < 8)
+            {
+                multi = 2.83f + (0.04f * (m_THLvl - 6));
+                return multi;
+            }
+            else if (m_THLvl < 11)
+            {
+                multi = 2.87f + (0.62f * (m_THLvl - 7));
+                return multi;
+            }
+            else if (m_THLvl < 12)
+            {
+                multi = 3.06f + (0.02f * (m_THLvl - 10));
+                return multi;
+            }
+            else
+            {
+                multi = 3.08f + (0.08f * (m_THLvl - 11));
+                return multi;
+            }
+        }
+        else
+        {
+            return multi; // TH Didn't Apply
+        }
+}
+
     void DistributeItem(CCharEntity* PChar, CBaseEntity* PEntity, uint16 itemid, uint16 droprate)
     {
         TracyZoneScoped;
 
         uint8 tries    = 0;
         uint8 maxTries = 1;
-        uint8 bonus    = 0;
+        uint16 bonus    = 0;
         if (auto* PMob = dynamic_cast<CMobEntity*>(PEntity))
         {
             // THLvl is the number of 'extra chances' at an item. If the item is obtained, then break out.
             tries    = 0;
-            maxTries = 1 + (PMob->m_THLvl > 2 ? 2 : PMob->m_THLvl);
-            bonus    = (PMob->m_THLvl > 2 ? (PMob->m_THLvl - 2) * 10 : 0);
+            maxTries = 1;
+            bonus    = ApplyTH(PMob->m_THLvl, droprate);
         }
         while (tries < maxTries)
         {
-            if (droprate > 0 && xirand::GetRandomNumber(1000) < droprate * map_config.drop_rate_multiplier + bonus)
+            if (droprate > 0 && xirand::GetRandomNumber(1000) < droprate * settings::get<float>("map.DROP_RATE_MULTIPLIER") * bonus)
             {
                 PChar->PTreasurePool->AddItem(itemid, PEntity);
                 break;
@@ -3674,7 +3899,7 @@ namespace charutils
             {
                 if (PMember->getZone() == PMob->getZone())
                 {
-                    if (map_config.exp_party_gap_penalties == 1)
+                    if (settings::get<bool>("map.EXP_PARTY_GAP_PENALTIES"))
                     {
                         if (maxlevel > 50 || maxlevel > (memberlevel + 7))
                         {
@@ -4190,7 +4415,7 @@ namespace charutils
             return;
         }
 
-        capacityPoints = (uint32)(capacityPoints * map_config.exp_rate);
+        capacityPoints = (uint32)(capacityPoints * settings::get<float>("map.EXP_RATE"));
 
         // uint16 currentCapacity = PChar->PJobPoints->GetCapacityPoints();
 
@@ -4240,9 +4465,9 @@ namespace charutils
         TracyZoneScoped;
 
         XI_DEBUG_BREAK_IF(retainPercent > 1.0f || retainPercent < 0.0f);
-        XI_DEBUG_BREAK_IF(map_config.exp_loss_level > 99 || map_config.exp_loss_level < 1);
+        XI_DEBUG_BREAK_IF(settings::get<uint8>("map.EXP_LOSS_LEVEL") > 99 || settings::get<uint8>("map.EXP_LOSS_LEVEL") < 1);
 
-        if (PChar->GetMLevel() < map_config.exp_loss_level && forcedXpLoss == 0)
+        if (PChar->GetMLevel() < settings::get<uint8>("map.EXP_LOSS_LEVEL") && forcedXpLoss == 0)
         {
             return;
         }
@@ -4259,7 +4484,7 @@ namespace charutils
         {
             // Apply retention percent
             exploss = (uint16)(exploss * (1 - retainPercent));
-            exploss = (uint16)(exploss * map_config.exp_loss_rate);
+            exploss = (uint16)(exploss * settings::get<float>("map.EXP_LOSS_RATE"));
         }
 
         if (PChar->jobs.exp[PChar->GetMJob()] < exploss)
@@ -4348,7 +4573,7 @@ namespace charutils
 
         if (!expFromRaise)
         {
-            exp = (uint32)(exp * map_config.exp_rate);
+            exp = (uint32)(exp * settings::get<float>("map.EXP_RATE"));
         }
         uint16 currentExp  = PChar->jobs.exp[PChar->GetMJob()];
         bool   onLimitMode = false;
@@ -4674,7 +4899,7 @@ namespace charutils
     {
         TracyZoneScoped;
 
-        if (!roeutils::RoeSystem.RoeEnabled)
+        if (!settings::get<bool>("main.ENABLE_ROE"))
         {
             return;
         }
@@ -6085,7 +6310,7 @@ namespace charutils
             {
                 return 200;
             }
-            else if (level >= 20 || map_config.all_jobs_widescan == 1)
+            else if (level >= 20 || settings::get<bool>("map.ALL_JOBS_WIDESCAN"))
             {
                 return 150;
             }
@@ -6096,7 +6321,7 @@ namespace charutils
         }
 
         // Default to base widescan if not RNG or BST
-        if (map_config.all_jobs_widescan == 1)
+        if (settings::get<bool>("map.ALL_JOBS_WIDESCAN"))
         {
             return 150;
         }

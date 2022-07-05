@@ -178,7 +178,6 @@ local pTable =
     -- [xi.magic.spell.TEMPER_II    ] = { 2, 0                      , 99,    5,  180, true,  false, 0},
 }
 
-
 -- Enhancing Spell Base Potency function.
 xi.spells.enhancing.calculateEnhancingBasePower = function(caster, target, spell, spellId, spellEffect)
     local basePower  = pTable[spellId][4]
@@ -408,6 +407,11 @@ xi.spells.enhancing.useEnhancingSpell = function(caster, target, spell)
     ------------------------------------------------------------
     -- Handle exceptions and weird behaviour here, before calculating anything.
     ------------------------------------------------------------
+
+    if target:getStatusEffect(xi.effect.ALL_MISS):getPower() == 2 then
+        spell:setMsg(xi.msg.basic.MAGIC_NO_EFFECT)
+        return 0
+    end
 
     -- TODO: Find a way to replace big if/else chain and still make it look good.
 

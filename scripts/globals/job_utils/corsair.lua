@@ -1,7 +1,7 @@
 -----------------------------------
 -- Corsair Job Utilities
 -----------------------------------
-require("scripts/settings/main")
+require("scripts/globals/settings")
 require("scripts/globals/ability")
 require("scripts/globals/jobpoints")
 require("scripts/globals/status")
@@ -11,7 +11,6 @@ xi = xi or {}
 xi.job_utils = xi.job_utils or {}
 xi.job_utils.corsair = xi.job_utils.corsair or {}
 -----------------------------------
-
 
 -- rollModifiers format: Effect Powers table, phantomBase, roll bonus increase, Effect, Mod, Optimal Job
 -- NOTE: nil items below are nil values on purpose.  This might break if parameters are added to various bindings
@@ -189,6 +188,8 @@ local function applyRoll(caster, target, inAbility, action, total, isDoubleup, c
         -- bust
         if caster:getID() == target:getID() then
             currentAbility:setMsg(xi.msg.basic.DOUBLEUP_BUST)     -- bust message for the COR rolling
+        elseif target:getStatusEffect(xi.effect.ALL_MISS):getPower() == 2 then -- Handle Super Jump
+            currentAbility:setMsg(xi.msg.basic.NO_EFFECT)
         else
             currentAbility:setMsg(xi.msg.basic.DOUBLEUP_BUST_SUB) -- bust message for the target getting the roll
         end

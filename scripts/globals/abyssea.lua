@@ -651,7 +651,6 @@ local checkMobID = function(zoneId, mobId)
     return false
 end
 
-
 xi.abyssea.qmOnTrigger = function(player, npc, mobId, kis, tradeReqs)
     -- validate QM pop data
     local zoneId = player:getZoneID()
@@ -809,7 +808,7 @@ xi.abyssea.setBonusLights = function(player)
     local lightTable = {}
 
     for _, v in ipairs(xi.abyssea.lightType) do
-        lightTable[v] = xi.settings.ABYSSEA_BONUSLIGHT_AMOUNT
+        lightTable[v] = xi.settings.main.ABYSSEA_BONUSLIGHT_AMOUNT
     end
 
     setLightsFromTable(player, lightTable)
